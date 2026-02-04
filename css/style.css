@@ -1,0 +1,911 @@
+@import url(font.css);
+@import url(reset.css);
+
+
+body {font-family: "Noto Sans", sans-serif;}
+.container {max-width:1520px; ;margin: 0 auto; }
+html, body {
+        max-width: 100%;
+        overflow-x: hidden;}
+
+/* 뒷배경 어둡게 하는 레이어 */
+.m_dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* 검은색 60% 투명도 */
+    z-index: 9998; /* nav(9999)보다 아래 배치 */
+    display: none; /* 평소엔 숨김 */
+}
+
+/* 메뉴가 열릴 때(active) 화면에 등장 */
+.m_dim.active {
+    display: block;
+}
+
+
+header { width: 100%; background: #000;}
+header .header {height: 112px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;}
+header .header .icon {}
+header .header .logo {}
+header .header .login {display: flex; gap: 40px;}
+header .header .login li {}
+
+/* PC에서는 숨김 */
+.m_menu_btn {
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    z-index: 9999;
+}
+
+.m_menu_btn span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #fff; /* 로고 색상에 맞춰 조정 */
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* 모바일 반응형 설정 */
+@media screen and (max-width: 768px) {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .m_menu_btn {
+        display: block; /* 모바일에서 등장 */
+        order: 3; /* 로고 오른쪽 배치를 위해 순서 조정 */
+    }
+
+    .logo { order: 2; }
+    .icon { order: 1; }
+    .login { display: none; } /* 모바일에서 로그인 아이콘 숨길 경우 */
+
+ 
+}
+
+header nav {width: 100%; background: #fff; height: 97px; }
+header nav .menu {font-size: 24px; display: flex; justify-content: space-between;}
+header nav .menu > li {height: 97px; width: 304px;  display: flex; align-items: center; justify-content: center; position: relative; }
+header nav .menu > li:hover {background: #94845B; } 
+header nav .menu > li > a { display: block; padding: 20px 30px;}
+header nav .menu li:hover > a {color: #fff;}
+
+header nav .menu li .lnb {width: 455px; height: 203px; background:rgba(255,255,255,0.8); position: absolute; top: 100%; visibility: hidden; opacity: 0; transition: 0.5s; left: 0; backdrop-filter: blur(3px); z-index: 3;}
+header nav .menu li:hover .lnb {visibility: visible; opacity: 1; left: 50px;}
+header nav .menu li .lnb {display: flex; align-items: center; }
+header nav .menu li .lnb li.photo {height: 100%; display: flex; align-items: center; margin-left: 40px;}
+header nav .menu li .lnb li.photo a {width: 180px;}
+header nav .menu li .lnb .lnbmenu {height: 100%;  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;}
+header nav .menu li .lnb .lnbmenu li {width: 40%; padding: 10px 0; font-size: 16px; text-align: center; }
+header nav .menu li .lnb .lnbmenu li a { padding: 13px;}
+header nav .menu li .lnb .lnbmenu li:hover > a {background: #806F4D; border-radius: 5px;}
+
+
+@media (max-width:768px) {
+    header nav {}
+    .herowrap {
+        height: 500px; /* 모바일에서 적절한 높이로 고정 */
+        overflow: hidden;
+        position: relative;
+    }
+    /* 모바일 메뉴가 열렸을 때 (nav.active) 스타일 */
+nav.active {
+    display: block; /* 메뉴 보이기 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* 메뉴 배경색 (흰색) */
+    z-index: 9999; /* 최상단 배치 */
+}
+
+/* 닫기 버튼의 위치와 크기 */
+.close_btn {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+/* X 모양 만들기 (막대기 2개) */
+.close_btn::before, .close_btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 25px;
+    background-color: #333; /* X 버튼 색상 (검정) */
+}
+
+.close_btn::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.close_btn::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+   
+    .herowrap img.hero {width: 100%; height: 100%;object-fit: cover;
+    object-position: left;
+    animation: heroImgMobile 6s forwards;}
+    header .header .login {display: none;}
+    header .header .logo {margin: 0 auto;}/* 좌우 여백을 자동으로 계산해 중앙 정렬 */
+    header .logo img {width: auto;      /* 가로 비율 유지 */
+        height: 35px;     /* 👈 40vh 대신 고정 높이(px)를 주면 훨씬 안정적입니다 */
+        max-width: 150px; /* 너무 커지지 않게 제한 */
+        display: block;
+        margin: 0 auto;} 
+    .herowrap .herotext {
+        width: 100%;
+        left: 0 !important; /* PC의 left: 200px 무시 */
+           /* 좌우 여백 */
+        text-align: left;   /* 왼쪽 정렬 유지 혹은 center 선택 */
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .herowrap .herotext .big {
+        font-size: 32px !important; /* 64px에서 축소 */
+        line-height: 1.3;
+        word-break: keep-all;
+        margin-bottom: 10px;
+    }
+
+    .herowrap .herotext p {
+        font-size: 16px !important; /* 30px에서 축소 */
+        line-height: 1.5;
+        word-break: keep-all;
+    }
+
+   nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* 처음에 왼쪽이 아니라 오른쪽 밖에 숨어있음 */
+        left: auto !important; /* 혹시 모를 왼쪽 고정 해제 */
+        
+        width: 50% !important; /* 화면의 절반만 차지 */
+        height: 100vh;
+        background-color: rgba(255,255,255,0.2);
+        z-index: 9999;
+        transition: right 0.3s ease; /* 오른쪽(right) 값이 변할 때 애니메이션 */
+        
+         
+        overflow-x: hidden !important; 
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* 2. active 클래스가 붙으면 오른쪽 끝에 딱 붙음 */
+    nav.active {
+        right: 0 !important; /* 오른쪽 0 지점으로 들어옴 */
+    }
+
+    /* 3. 닫기 버튼을 메뉴 안의 왼쪽이나 오른쪽에 배치 */
+    .close_btn {
+        position: absolute;
+        top: 20px;
+        right: 20px; /* 메뉴 창 안의 오른쪽 상단 */
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        z-index: 10000;
+    }
+
+  
+    /* 4. 1차 메뉴 리스트 정렬 */
+    nav .menu {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important; /* 세로 나열 */
+        align-items: flex-start !important; /* 왼쪽 정렬 */
+        gap: 15px !important;
+    }
+
+    nav .menu > li {
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    /* 5. 2차 메뉴(lnb) 및 불필요한 이미지(photo)는 모바일에서 일단 숨김 처리 */
+    nav .lnb, nav .photo {
+        display: none !important;
+    }
+    /* 모바일 gnb 안의 로고 이미지는 너무 크니 숨기거나 조절 */
+    nav .lnb .photo { display: none; }
+    .section1 .container .textbox .big {font-size: 30px !important;word-break: keep-all; line-height: 1.3;}
+    .section1 .container .textbox p {word-break:keep-all }
+    .section2 {background: url(../images/mainbg.png);
+    width: 100%;
+    /* 이미지가 화면을 꽉 채우도록 설정 */
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 고정 높이 대신 최소 높이를 설정하거나, 높이 설정을 삭제하여 콘텐츠에 맞게 늘어나게 함 */
+    height: auto; 
+    min-height: 500px; /* 최소한의 높이 확보 */}
+    
+
+
+    /* --- 모바일 반응형 통합 수정 --- */
+@media screen and (max-width: 768px) {
+    /* [기본 헤더 설정] */
+    header nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%; /* 430px 대비 적절한 너비 */
+        height: 100vh;
+        background: #fff;
+        z-index: 10000;
+        transition: 0.4s;
+        padding-top: 60px; /* ★ X 버튼이 들어갈 여유 공간 확보 */
+    }
+    nav .lnb {
+        display: none !important;
+    }
+
+    .m_login_area {
+        
+        text-align: center;
+        padding: 30px;
+    }
+
+    .m_login_btn {
+        display: block;
+        
+        padding: 15px 0;
+        background: #806F4D; /* 브랜드 포인트 색상 */
+        color: #fff !important;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 300;
+        border-radius: 5px;
+        transition: 0.3s;;
+        
+    }
+
+    .m_login_btn:hover {
+        background: #6b5d40;
+    }
+    .close_btn {
+        display: block !important;
+        position: absolute;
+        top: 10px;    /* 스크린샷 상단 바를 고려해 약간 내림 */
+        right: 20px;
+        font-size: 50px; /* 눈에 잘 띄게 크게 */
+        color: #806F4D;  /* 브랜드 포인트 컬러 사용 */
+        z-index: 10001; /* 메뉴 내용보다 무조건 위 */
+        cursor: pointer;
+        font-family: sans-serif; /* 기호가 깨지지 않게 기본 폰트 */
+    }
+    header .header .login { display: none; }
+    header .header .logo { margin: 0 auto; }
+    header .logo img { width: 40vh; margin: 10px auto; display: block; }
+
+    /* [문제의 Section2 배경 해결] */
+    .section2 {
+        background-image: url(../images/mainbg.png) !important; /* 이미지 강제 지정 */
+        background-size: cover !important;     /* 👈 핵심: 배경이 꽉 차게 */
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        height: auto !important;               /* 👈 높이를 내용에 맞게 자동 조절 */
+        min-height: 600px;                     /* 최소 높이 확보 */
+        padding: 100px 0;                      /* 위아래 여백을 줘서 배경이 보이게 함 */
+    }
+
+    .section2 .container {
+        height: auto;                          /* 컨테이너도 내용만큼 늘어나게 */
+        display: block;                        /* flex 대신 차곡차곡 쌓이게 */
+    }
+
+    .section2 .container .content {
+        display: flex;
+        flex-direction: column;                /* 가로가 아닌 세로로 배치 */
+        align-items: center;
+        gap: 30px;
+    }
+
+    /* [기타 섹션 조절] */
+    .section1 .container .textbox .big { font-size: 30px !important; word-break: keep-all; line-height: 1.3; }
+    .herowrap { height: 574px; }
+}
+    .section2 .container {}
+    .section2 .container .content {display: flex; flex-direction: column; align-items: center; gap: 30px; align-items: center; }
+    .section2 .container .content img {}
+    .section2 .content p { } 
+    .banner {}
+    
+    .section3 .container {}
+    .section3 .container .content1 { position: relative; display: flex; flex-direction: column; text-align: center;
+    word-break: keep-all; justify-content: center;}
+    .section3 .container strong {position: static;       /* 공중에 뜬 걸 바닥으로 내림 */
+        margin-bottom: 20px;    /* 아래 이미지와의 간격만 설정 */
+        font-size: 24px;
+        text-align: center;
+        width: 100%;}
+    .section3 .container .content1 .photo img {
+        width: 100%;       /* 화면 너비에 맞게 꽉 채움 */
+          /* 원본보다 커지지 않게 함 */
+        height: auto;      /* 비율 유지하며 축소 */
+        object-fit: cover; /* 영역에 맞게 이미지 채우기 */
+    }
+
+    @media screen and (min-width: 769px) {
+    .close_btn { display: none; }
+}
+    .section3 .container .content2 {display: flex; flex-direction: column ; align-items: center;}
+    .section3 .container .content2 li {}
+    .section3 .container .content1 .textbox ul {}
+    }
+
+
+.herowrap {overflow: hidden ; position:relative; }
+.herowrap img.hero {width: 100%; display: block; animation: heroImg 6s forwards; transform-origin: center;}
+@keyframes heroImg {
+    0% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+.herowrap .herotext {position: absolute; z-index: 15; color: #fff; top: 50%; transform: translateY(-50%);}
+.herowrap .herotext .big {font-size: 64px; font-weight: 300; animation: heroText 3s forwards; position: relative;}
+.herowrap .herotext p {font-size: 30px; font-weight: 100; animation: heroText 3.5s forwards; position: relative;}
+
+@keyframes heroText {
+    0% {left: 200px; opacity: 0;}
+    100% {left: 0; opacity: 1;}
+}
+
+.section1 .container {}
+.section1 .container .textbox {text-align: center; margin-top: 180px;}
+.section1 .container .textbox .big {font-size: 36px; color: #806F4D;}
+.section1 .container .textbox .small {line-height: 50px; margin-top: 30px; font-size: 2;}
+.section1 .container .btnmore { display: flex; align-items: center; justify-content: center;}
+.section1 .container .btnmore a { width: 194px; height: 60px;font-size: 22px; color: #94855B; display: block;  display: flex; align-items: center; gap: 20px; border: 1px solid #94855B; justify-content: center; margin: 100px 0 170px;}
+.section1 .container .btnmore img {}
+
+.section2 {background: url(../images/mainbg.png);  width: 100%;  background-repeat: no-repeat; background-position: center;
+padding: 30px 0 30px;}
+.section2 .container {display: flex; align-items: center; height: 100%} 
+.section2 .container .content {display: flex; gap: 44px; justify-content: center;}
+.section2 .container .content li {max-width: 477px; }
+.section2 .container .content img {transition: 0.4s; width: 100%;}
+.section2 .container .content img:hover {scale: 1.1;}
+.section2 .container .content p {color: #fff; text-align: center; margin-top: 30px;}
+
+.banner {background: url(../images/banner.png); height: 176px; margin-top: 230px; background-repeat: no-repeat; background-position: center;}
+.banner .container { height: 100%; position: relative;}
+.banner .container .btnmore {color: #fff; position: absolute; bottom: 0; padding: 5px 0; border-bottom: 1px solid #fff; margin-bottom: 10px; margin-left: 5px;} 
+
+.btnmore a {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 20px;
+    color: #94855B;
+    border: 1px solid #94855B;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btnmore a:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 10px rgba(194, 177, 177, 0.4);}
+
+.container .textbox2 {padding: 200px 0;}
+.container .textbox2 strong {text-align: center; display: block; font-size: 40px; }
+.container .textbox2 p {text-align: center;}
+
+.section3 {}
+.section3 .container {}
+.section3 .container .content1 {display: flex; }
+.section3 .container .content1 .photo 
+    {width: 100%;       /* 고정 767px를 지우고 100%로 변경 */
+    max-width: 767px;  /* 최대 크기만 제한 */
+    height: auto;      /* 고정 높이 482px를 해제하여 비율 유지 */}
+
+.section3 .container .content1 .photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+.section3 .container .content1 .textbox1 {}
+.section3 .container .content1 .textbox1 ul { display: flex; flex-direction: column; gap: 50px; padding-left: 30px;}
+.section3 .container .content1 .textbox1 ul strong {font-size: 32px; color: #806F4D;}
+.section3 .container .content2 {display: flex; gap: 28px; margin-top: 28px;}
+.section3 .container .content2 li span {color: #9E8A62; padding: 10px 0; display: block; font-size: 20px;}
+.btnmore.section3 { display: flex; align-items: center; justify-content: center;}
+.btnmore.section3 a { width: 194px; height: 60px;font-size: 22px; color: #94855B; display: block;  display: flex; align-items: center; gap: 20px; border: 1px solid #94855B; justify-content: center; margin: 100px 0 170px;}
+
+
+@media screen and (max-width: 768px) {
+    /* 1. 컨테이너 밖으로 나가는 현상 방지 */
+    .section3 .container {
+        width: 100%;
+        overflow: hidden; /* 밖으로 튀어나오는 요소 차단 */
+        
+    }
+
+    /* 2. 세로 배치 및 정렬 */
+    .section3 .container .content1,
+    .section3 .container .content2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 50px;
+    }
+
+    /* 3. 이미지 크기 강제 조정 (가로 스크롤의 원인) */
+    .section3 .container .content1 .photo,
+    .section3 .container .content2 li {
+        width: 100% !important; /* 고정 px가 있다면 무시하고 100%로 */
+        max-width: 100%;
+        height: auto;
+    }
+
+    .section3 .container .content1 .photo img,
+    .section3 .container .content2 li img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    /* 4. 잘리는 텍스트 처리 */
+    .section3 .container .content1 .textbox,
+    .section3 .container .content2 li .textbox {
+        width: 100%;
+        text-align: left; /* 혹은 center */
+        word-break: keep-all; /* 단어 단위 줄바꿈으로 깔끔하게 */
+        padding: 0 20px;
+    }
+
+    .section3 .container .content1 .textbox ul {
+        padding: 0 20px;
+        gap: 20px;
+    }
+}
+
+
+
+footer {height: 415px; width: 100%; background: #000;}
+footer .container {display: flex; gap: 30px;}
+footer .container h1 {height: 415px; display: flex; align-items: center;}
+footer .container h1 img {}
+footer .footertext {color: #fff; flex-grow: 1;}
+footer .footertext .top {display: flex; gap: 60px;}
+footer .footertext .top li {display: flex; flex-direction: column; gap: 10px; margin-top: 35px;}
+footer .footertext .top strong {font-size: 28px;}
+footer .footertext .top p {}
+footer .footertext .bottom {margin-top: 30px; display: flex; flex-direction: column; gap: 5px;}
+
+
+@media screen and (max-width: 768px) {
+    footer {
+        height: auto; /* 고정 높이 해제 */
+        padding: 40px 0;
+    }
+
+    footer .container {
+        flex-direction: column; /* 로고와 텍스트를 세로로 */
+        align-items: center;
+        gap: 20px;
+    }
+
+    footer .container h1 {
+        height: auto; /* 기존 415px 해제 */
+    }
+
+    footer .container h1 img {
+        width: 150px; /* 로고 크기 조절 */
+    }
+
+    footer .footertext {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* 상단 메뉴 리스트 조절 */
+    footer .footertext .top {
+        flex-direction: column; /* 메뉴들을 세로로 나열 */
+        gap: 30px;
+        align-items: center;
+    }
+
+    footer .footertext .top li {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    footer .footertext .top strong {
+        font-size: 20px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    footer .footertext .top p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    /* 하단 정보 조절 */
+    footer .footertext .bottom {
+        margin-top: 40px;
+        padding: 0 20px;
+        word-break: keep-all; /* 문장이 어색하게 잘리지 않게 함 */
+    }
+
+    footer .footertext .bottom p {
+        font-size: 13px;
+        color: #ccc;
+    }
+}
+
+/* 숙박 시설 sub */
+.section1 {}
+.container {}
+.herowrap {position: relative; }
+.sub { padding: 200px 0;}
+.herotext_sub {position: absolute; z-index: 15; color: #fff; top: 50%;  font-size: 40px;
+width: 100%; text-align: center;  left: 0;}
+
+@media screen and (max-width: 768px) {
+    /* 1. 배경 이미지와 텍스트의 부모 컨테이너 높이 조정 (필요시) */
+    .herowrap {
+        height: 300px; /* 모바일에서 너무 길지 않게 높이 고정 (선택사항) */
+        overflow: hidden;
+    }
+
+    .herowrap .hero {
+        height: 100%;
+        object-fit: cover; /* 이미지가 찌그러지지 않게 채움 */
+    }
+
+    /* 2. 히어로 텍스트 스타일 수정 */
+    .herotext_sub {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* 정확한 중앙 정렬 */
+        width: 100%;
+        padding: 0 20px; /* 양옆 여백 */
+        box-sizing: border-box;
+    }
+
+    .herotext_sub .big {
+        font-size: 32px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+
+    .herotext_sub p:not(.big) {
+        font-size: 14px !important; /* 설명글은 작고 깔끔하게 */
+        line-height: 1.4;
+        word-break: keep-all; /* 한글 단어 끊김 방지 */
+        opacity: 0.9;
+    }
+}
+
+.container .content {display: flex; justify-content: center; gap: 150px;}
+.container .textbox {display: flex; flex-direction: column; justify-content: center; gap: 80px;}
+.container .textbox {display: flex; flex-direction: column; justify-content: center; gap: 80px;}
+.container .textbox p {line-height: 30px;}
+.container .textbox strong {color: #806F4D; font-size: 36px; font-weight: 400;}
+.container figure {width: 881px; height: 509px;  }
+.container .content .btnmore a {display: flex;  width: 194px; display: flex; justify-content: center; gap: 30px; 
+padding: 15px 0; }
+
+
+
+
+
+
+/* 호텔 소개 sub */
+.introduce {margin: 190px 0 250px; }
+.introduce .container {display: flex; flex-wrap: wrap; gap: 80px 20px; }
+.introduce li img {height: 270px; width: 477px; transition: 0.3s;}
+.introduce li img:hover {scale: 1.04;}
+.introduce li .big {font-size: 25px; color: #806F4D;}
+.introduce li .small {font-size: 20px; ㅡㅅ1-z}
+
+
+
+
+
+
+
+
+
+
+
+/* login sub */
+
+.logintext {font-size: 35px; color: #806F4D; text-align: center; padding: 150px 0;}
+
+.login-container {
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+    margin: 0 auto;
+   
+}
+
+/* 입력창 스타일: 하단 테두리만 있는 형태 */
+.input-group input {
+    width: 100%;
+    padding: 15px 5px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* ID 저장 섹션 */
+.options {
+    text-align: left;
+    margin: 10px 0 30px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 버튼 공통 스타일 */
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+/* 로그인 버튼 (검정) */
+.btn-login {
+    background-color: #222;
+    color: white;
+}
+
+/* 카카오 버튼 (노란색) */
+.btn-kakao-login, .btn-kakao-signup {
+    background-color: #FEE500;
+    color: #3C1E1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-kakao-login img {}
+
+/* 하단 링크 스타일 */
+.footer-links {
+    margin: 20px 0 40px;
+    font-size: 12px;
+    color: #999;
+}
+.footer-links a {
+    color: #999;
+    text-decoration: none;
+}
+
+/* 가장 하단 카카오 회원가입 버튼 */
+.btn-kakao-signup {
+    margin-top: 20px;
+}
+
+.logbanner {padding: 150px 0 180px; position: relative;}
+.logbanner img {width: 100%}
+.logbanner .btn {background: #1D110D; color: #fff;padding: 15px 85px; position: absolute; display: block;
+right: 0; top: 50%; transform: translate(-50%, -50%);}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 오시는길 sub */
+
+/* 전체 컨테이너 */
+.mapcontainer {
+    width: 1515px;
+    margin: 50px auto;
+    color: #333;
+    font-family: "Noto Sans", sans-serif;
+}
+
+.maptitle {padding-top: 100px;}
+
+h1 {
+    font-size: 31px; /* 기본 28px + 3px */
+    color: #8b7d6b;
+   
+    font-weight: normal;
+    
+}
+
+.address {
+    font-size: 21px; /* 기본 18px + 3px */
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* 구글 지도 박스 */
+#google-map {
+    width: 100%;
+    height: 500px;
+    background-color: #f4f4f4;
+    margin-bottom: 40px;
+    border: 1px solid #ddd;
+}
+
+/* 리스트 스타일 */
+.transport-list {
+    list-style: none;
+    padding: 0;
+    border-top: 2px solid #ddd;
+}
+
+.transport-list li {
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.list-title {
+    padding: 23px 10px; /* 기존보다 더 넓게 */
+    font-size: 23px; /* 기존 20px + 3px */
+    color: #444;
+}
+
+.list-title:hover {
+    background-color: #f9f9f9;
+}
+
+/* 클릭 전에는 숨김 처리 */
+.list-content {
+    display: none;
+    padding: 20px 30px;
+    background-color: #fafafa;
+    font-size: 18px; /* 기존 15px + 3px */
+    line-height: 1.8;
+    color: #555;
+}
+
+.list-content strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* 모바일 반응형 (768px 이하) */
+@media screen and (max-width: 768px) {
+    /* 1. 컨테이너 너비를 화면에 맞게 조절 */
+    .mapcontainer {
+        width: 100%; /* 고정 1515px 해제 */
+        margin: 20px 0;
+        padding: 0 20px; /* 양옆 여백 추가 */
+        box-sizing: border-box;
+    }
+
+    /* 2. 타이틀 영역 여백 줄임 */
+    .maptitle {
+        padding-top: 40px; /* PC 100px에서 축소 */
+        text-align: center; /* 모바일에서는 중앙 정렬이 깔끔합니다 */
+    }
+
+    h1 {
+        font-size: 24px; /* 글자 크기 축소 */
+    }
+
+    .address {
+        font-size: 15px; /* 주소 폰트 축소 */
+        margin-bottom: 20px;
+        word-break: keep-all; /* 주소가 어색하게 잘리지 않게 함 */
+    }
+
+    /* 3. 지도 높이 조절 */
+    #google-map {
+        height: 300px; /* 모바일에서 너무 길지 않게 높이 축소 */
+        margin-bottom: 25px;
+    }
+
+    #google-map iframe {
+        height: 300px !important;
+    }
+
+    /* 4. 교통편 리스트 텍스트 조절 */
+    .list-title {
+        padding: 15px 10px;
+        font-size: 18px; /* 가독성 좋은 크기로 조정 */
+    }
+
+    .list-content {
+        padding: 15px 20px;
+        font-size: 14px; /* 내용 텍스트 축소 */
+    }
+
+    .list-content strong {
+        font-size: 15px;
+    }
+}
+
+/* CSS 파일 최하단에 복사해서 붙여넣으세요 */
+
+@media screen and (max-width: 768px) {
+    /* 1. 기본 배경 및 가시성 강제 확보 */
+    html, body {
+        background-color: #fff !important;
+        height: auto !important;
+        min-height: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 2. 범인 검거: nav가 화면을 가리지 못하게 평소엔 아예 제거 */
+    header nav {
+        position: fixed !important;
+        top: 0;
+        right: -100% !important; /* 화면 오른쪽 밖으로 완전히 치움 */
+        width: 70% !important;
+        height: 100vh !important;
+        background: #fff !important;
+        z-index: 10000 !important;
+        visibility: hidden; /* ★ 평소엔 눈에 보이지도 않게 설정 */
+        display: block !important;
+        transition: right 0.3s ease;
+    }
+
+    /* 3. 메뉴가 활성화(active)될 때만 보이게 설정 */
+    header nav.active {
+        right: 0 !important;
+        visibility: visible !important; /* ★ 이때만 나타남 */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* 4. 로그인 폼이 nav 뒤에 숨지 않도록 위로 올림 */
+    .login-container, .logintext, .logbanner {
+        position: relative !important;
+        z-index: 5 !important; /* nav(10000)보다 낮지만 배경보다는 높게 */
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* 5. PC용 고정 높이(97px)가 모바일 화면을 밀어내는 현상 방지 */
+    header {
+        height: auto !important;
+    }
+}
+
+/* [긴급 조치] 769px 이상의 PC 화면에서는 모바일 로그인 영역을 완전히 숨김 */
+@media screen and (min-width: 769px) {
+    .m_login_area {
+        display: none !important; /* PC에서 절대 보이지 않게 강제 숨김 */
+    }
+}
+
+/* [추가 조치] 모바일에서만 보이도록 설정 재확인 */
+@media screen and (max-width: 768px) {
+    .m_login_area {
+        display: block !important; /* 모바일 메뉴 안에서만 보이게 설정 */
+    }
+}
